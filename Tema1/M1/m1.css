@@ -1,0 +1,115 @@
+div {
+    /* border: 1px solid; */
+}
+
+.main {
+    top: 0px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    /* overflow-y: auto; */
+}
+
+.header {
+    top: 0px;
+    background-color: blueviolet;
+    width: 97.5%;
+    height: 50px;
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    z-index: 4;
+    align-items: flex-end;
+}
+
+.menu {
+    display: flex;
+    width: 30px;
+    height: 30px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+i {
+    position: relative;
+}
+
+.title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.search {
+    display: flex;
+    width: 30px;
+    height: 30px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.contents {
+    top: 42px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.floatingMenu {
+    background-color: brown;
+    position: sticky;
+    display: flex;
+    height: 30px;
+    justify-content: space-between;
+}
+
+.filters {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+}
+
+.contacts {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact {
+    background-color: antiquewhite;
+    height: 70px;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-top: 1px solid;
+}
+
+.icon {
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-details {
+    width: 200px;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.name {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.job {
+    font-size: 12px;
+    font-weight: bold;
+    opacity: 60%;
+}
