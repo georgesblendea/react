@@ -1,0 +1,7 @@
+.menu {
+    position: relative;
+    height: 50px;
+    width: auto;
+    display: flex;
+    flex-direction: row;
+}

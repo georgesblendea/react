@@ -1,0 +1,12 @@
+.drinksList {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    margin: 20px;
+    padding: 0px 100px;
+}
+
