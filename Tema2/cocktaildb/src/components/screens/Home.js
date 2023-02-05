@@ -4,15 +4,15 @@ import { DrinkCategory } from "../common/DrinkCategory";
 
 
 
-const renderHome = (currentCategory, searchResults, viewDrink) => {
+const renderHome = (currentCategory, searchResults, viewDrink, customDrinks) => {
     return (
         <div className="home">
-            <DrinkCategory currentCategory={currentCategory} searchResults={searchResults} viewDrink={viewDrink}></DrinkCategory>
+            <DrinkCategory currentCategory={currentCategory} customDrinks={customDrinks} searchResults={searchResults} viewDrink={viewDrink}></DrinkCategory>
         </div>
     );
 }
 
-export const Home = ({currentCategory, searchResults, viewDrink}) => {
+export const Home = ({currentCategory, searchResults, viewDrink, customDrinks}) => {
     
-    return(renderHome(currentCategory, searchResults, viewDrink));
+    return(renderHome(currentCategory, searchResults, viewDrink, customDrinks));
 }

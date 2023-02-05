@@ -1,5 +1,6 @@
 import "../../styles/Search.css"
 import { useEffect, useState } from "react";
+import SearchIcon from '@mui/icons-material/Search';
 
 const Search = ({handleSearch}) => {
 
@@ -19,8 +20,7 @@ const Search = ({handleSearch}) => {
 
     return(
         <div className = "search">
-            <div>icon</div>
-            <div><input type="text" placeholder="Search by name" value={keyWord} onChange={e => setKeyWord(e.target.value)}></input></div>
+                <input className="searchInput" type="text" placeholder="Search by name" value={keyWord} onChange={e => setKeyWord(e.target.value)}></input>
         </div>
     );
 }

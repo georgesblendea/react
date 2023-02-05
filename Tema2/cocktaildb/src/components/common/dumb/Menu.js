@@ -6,14 +6,19 @@ import "../../../styles/Menu.css"
 
 export const Menu = ({items, filterByCategory}) => {
 
-    const renderItem = (item, filterByCategory) => {
-        return <MenuItem name={item.name} key={item.name} filterByCategory={filterByCategory}></MenuItem>
+    const handleOnItemClick = itemName => {
+        const category=items.find(c => c.name === itemName);
+        filterByCategory(category);
+    }
+
+    const renderItem = (item) => {
+        return <MenuItem name={item.name} key={item.name} filterByCategory={handleOnItemClick}></MenuItem>
     }
     
-    const renderItems = (items, filterByCategory) => {
-        return <div className = "menu">{items.map(item => renderItem(item, filterByCategory))}</div>;
+    const renderItems = (items) => {
+        return <div className = "menu">{items.map(item => renderItem(item))}</div>;
     }
 
 
-    return(renderItems(items, filterByCategory));
+    return(renderItems(items));
 }

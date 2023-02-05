@@ -1,7 +1,10 @@
 .menu {
-    position: relative;
+    position: sticky;
     height: 50px;
     width: auto;
     display: flex;
     flex-direction: row;
+    top: 0px;
+    z-index: 5;
+    
 }

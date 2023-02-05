@@ -3,14 +3,19 @@ import { useEffect, useState } from "react";
 import { ViewDrinkItem } from "../common/ViewDrinkItem";
 import { BackButton } from "../common/BackButton";
 
-export const ViewDrink = ({drinkId, goBack}) => {
+export const ViewDrink = ({drink, goBack}) => {
 
     let [state, setState] = useState({drink: {strDrink: "", strDrinkThumb: ""}})
 
     useEffect(() =>{
-        fetch(`http://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drinkId}`)
-            .then(response => response.json())
-            .then(data => setState({ drink : data.drinks[0]}));
+        if (drink?.isCustom) {
+            setState({drink: drink})
+        } else {
+            fetch(`http://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drink}`)
+                .then(response => response.json())
+                .then(data => setState({ drink : data.drinks[0]}));
+        }
+        
     }, []);
 
     return(

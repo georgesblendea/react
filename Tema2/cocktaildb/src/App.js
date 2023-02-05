@@ -4,21 +4,23 @@ import { Home } from './components/screens/Home';
 import { ViewDrink } from './components/screens/ViewDrink';
 import { Banner } from "./components/common/dumb/Banner.js";
 import { Menu } from "./components/common/dumb/Menu.js";
+import { AddNewDrinks } from './components/screens/AddNewDrinks';
 import Search from "./components/common/Search.js";
 
 const App = () => {
 
   const drinkCategories = [
-    { name: "Alcoholic", resourceURL: "http://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic" },
-    { name: "Non Alcoholic", resourceURL: "http://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic" },
-    { name: "Ordinary Drink", resourceURL: "http://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink"},
-    { name: "Cocktail Glass", resourceURL: "http://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail" },
-    { name: "Champagne Flute", resourceURL: "http://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Beer" }
+    { name: "Alcoholic", resourceURL: "https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Alcoholic" },
+    { name: "Non Alcoholic", resourceURL: "https://www.thecocktaildb.com/api/json/v1/1/filter.php?a=Non_Alcoholic" },
+    { name: "Ordinary Drink", resourceURL: "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Ordinary_Drink"},
+    { name: "Cocktail Glass", resourceURL: "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Cocktail" },
+    { name: "Champagne Flute", resourceURL: "https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=Beer" },
   ];
 
   let [currentDrink, setCurrentDrink] = useState(null);
   let [currentCategory, setCurrentCategory] = useState(drinkCategories[0]);
   let [searchResults, setSearchResults] = useState([]);
+  let [customDrinks, setCustomDrinks] = useState([]);
 
   const handleSearch = results => {
     if (results.length) {
@@ -31,8 +33,8 @@ const App = () => {
   }
 
   const filterByCategory = category => {
-      const cat=drinkCategories.find(c => c.name === category);
-      setCurrentCategory(cat);
+      // const cat=drinkCategories.find(c => c.name === category);
+      setCurrentCategory(category);
       setCurrentDrink(null);
       setSearchResults([])
   }
@@ -45,15 +47,41 @@ const App = () => {
     setCurrentDrink(null);
   };
 
+  const cancelDrinkAdd = () => {
+    setCurrentDrink(null);
+    setCurrentCategory(drinkCategories[0]);
+  };
+
+  const addCustomDrink = newDrink => {
+      const drinks = customDrinks;
+      drinks.push(newDrink);
+      setCustomDrinks(drinks);
+      console.log("App", customDrinks);
+  };
+
+  const renderScreens = (currentDrink, currentCategory, viewDrink, searchResults, goBack, cancelDrinkAdd, addCustomDrink, customDrinks) =>  {
+    if ((currentDrink === null || currentDrink === undefined) && currentCategory.name !== "Add New") {
+      console.log("App", currentCategory)
+      return(<Home currentCategory = {currentCategory} viewDrink={viewDrink} searchResults={searchResults} customDrinks={customDrinks}></Home>);
+    } else if (currentCategory.name === "Add New") {
+      return(<AddNewDrinks drinkCategories={drinkCategories} cancelDrinkAdd={cancelDrinkAdd} addNewDrink={addCustomDrink} ></AddNewDrinks>);
+    } else {
+      return(<ViewDrink drink={currentDrink} goBack={goBack}></ViewDrink>);
+    }
+  };
+
+  const menuItems = () => {
+    let menuItems = [...drinkCategories];
+    menuItems.push({ name: "Add New"});
+    return menuItems;
+  }
+
   return (
     <>
       <Banner></Banner>
-      <Menu items={drinkCategories} filterByCategory={filterByCategory}></Menu>
+      <Menu items={menuItems()} filterByCategory={filterByCategory}></Menu>
       <Search handleSearch={handleSearch}></Search>
-      <>{(currentDrink === null || currentDrink === undefined) ?
-      <Home currentCategory = {currentCategory} viewDrink={viewDrink} searchResults={searchResults}></Home> :
-      <ViewDrink drinkId={currentDrink} goBack={goBack}></ViewDrink>}
-      </>
+      {renderScreens(currentDrink, currentCategory, viewDrink, searchResults, goBack, cancelDrinkAdd, addCustomDrink, customDrinks)}
     </>
   );
 }
