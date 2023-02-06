@@ -33,7 +33,6 @@ const App = () => {
   }
 
   const filterByCategory = category => {
-      // const cat=drinkCategories.find(c => c.name === category);
       setCurrentCategory(category);
       setCurrentDrink(null);
       setSearchResults([])
@@ -56,12 +55,10 @@ const App = () => {
       const drinks = customDrinks;
       drinks.push(newDrink);
       setCustomDrinks(drinks);
-      console.log("App", customDrinks);
   };
 
   const renderScreens = (currentDrink, currentCategory, viewDrink, searchResults, goBack, cancelDrinkAdd, addCustomDrink, customDrinks) =>  {
     if ((currentDrink === null || currentDrink === undefined) && currentCategory.name !== "Add New") {
-      console.log("App", currentCategory)
       return(<Home currentCategory = {currentCategory} viewDrink={viewDrink} searchResults={searchResults} customDrinks={customDrinks}></Home>);
     } else if (currentCategory.name === "Add New") {
       return(<AddNewDrinks drinkCategories={drinkCategories} cancelDrinkAdd={cancelDrinkAdd} addNewDrink={addCustomDrink} ></AddNewDrinks>);

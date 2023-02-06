@@ -11,7 +11,7 @@ export const ViewDrink = ({drink, goBack}) => {
         if (drink?.isCustom) {
             setState({drink: drink})
         } else {
-            fetch(`http://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drink}`)
+            fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${drink.idDrink}`)
                 .then(response => response.json())
                 .then(data => setState({ drink : data.drinks[0]}));
         }

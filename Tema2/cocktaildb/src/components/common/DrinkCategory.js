@@ -25,7 +25,6 @@ export const DrinkCategory = ({currentCategory, customDrinks, searchResults, vie
 
     const renderCustomDrinks = (currentCategory, customDrinks) => {
         const currentCustomDrinks = customDrinksForCategory(currentCategory, customDrinks);
-        console.log("DC", currentCustomDrinks)
         if (currentCustomDrinks.length) {
             return (
                 <>
