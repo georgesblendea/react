@@ -2,8 +2,8 @@ import './App.css';
 import { useState } from 'react';
 import { Home } from './components/screens/Home';
 import { ViewDrink } from './components/screens/ViewDrink';
-import { Banner } from "./components/common/dumb/Banner.js";
-import { Menu } from "./components/common/dumb/Menu.js";
+import { Banner } from "./components/common/Banner.js";
+import { Menu } from "./components/menu/Menu.js";
 import { AddNewDrinks } from './components/screens/AddNewDrinks';
 import Search from "./components/common/Search.js";
 
@@ -19,53 +19,76 @@ const App = () => {
 
   let [currentDrink, setCurrentDrink] = useState(null);
   let [currentCategory, setCurrentCategory] = useState(drinkCategories[0]);
+  let [previousCategory, setPreviousCategory] = useState(drinkCategories[0]);
   let [searchResults, setSearchResults] = useState([]);
   let [customDrinks, setCustomDrinks] = useState([]);
 
   const handleSearch = results => {
     if (results.length) {
       setSearchResults(results);
-      setCurrentCategory({name: "Search"})
+      setPreviousCategory(currentCategory);
+      setCurrentCategory({name: "Search"});
     } else {
       setSearchResults([]);
-      setCurrentCategory(drinkCategories[0])
+      setCurrentCategory(previousCategory)
     }
   }
-
-  const filterByCategory = category => {
+  
+  const onFilterByCategory = category => {
       setCurrentCategory(category);
       setCurrentDrink(null);
       setSearchResults([])
   }
 
-  const viewDrink = drink => {
+  const onViewDrink = drink => {
       setCurrentDrink(drink);
   };
 
-  const goBack = () => {
+  const onGoBack = () => {
     setCurrentDrink(null);
   };
 
-  const cancelDrinkAdd = () => {
+  const onCancelDrinkAdd = () => {
     setCurrentDrink(null);
     setCurrentCategory(drinkCategories[0]);
   };
 
-  const addCustomDrink = newDrink => {
+  const onAddCustomDrink = (newDrink, categoryToReturn) => {
       const drinks = customDrinks;
       drinks.push(newDrink);
       setCustomDrinks(drinks);
+      setCurrentCategory(categoryToReturn);
   };
 
-  const renderScreens = (currentDrink, currentCategory, viewDrink, searchResults, goBack, cancelDrinkAdd, addCustomDrink, customDrinks) =>  {
-    if ((currentDrink === null || currentDrink === undefined) && currentCategory.name !== "Add New") {
-      return(<Home currentCategory = {currentCategory} viewDrink={viewDrink} searchResults={searchResults} customDrinks={customDrinks}></Home>);
-    } else if (currentCategory.name === "Add New") {
-      return(<AddNewDrinks drinkCategories={drinkCategories} cancelDrinkAdd={cancelDrinkAdd} addNewDrink={addCustomDrink} ></AddNewDrinks>);
-    } else {
-      return(<ViewDrink drink={currentDrink} goBack={goBack}></ViewDrink>);
+  const shouldRenderHomeScreen = () => {
+    return (currentDrink === null || currentDrink === undefined) && currentCategory.name !== "Add New";
+  }
+
+  const shouldRenderAddNewScreen = () => {
+    return currentCategory.name === "Add New";
+  }
+
+  const shouldRenderViewDrinkScreen = () => {
+    return currentDrink !== null && currentDrink !== undefined;
+  }
+
+  const renderHomeScreen = () => {
+    if (shouldRenderHomeScreen()) {
+      return(<Home currentCategory = {currentCategory} viewDrink={onViewDrink} searchResults={searchResults} customDrinks={customDrinks}></Home>);
     }
-  };
+  }
+
+  const renderAddNewDrinksScreen = () => {
+    if (shouldRenderAddNewScreen()) {
+      return(<AddNewDrinks drinkCategories={drinkCategories} cancelDrinkAdd={onCancelDrinkAdd} addNewDrink={onAddCustomDrink} ></AddNewDrinks>); 
+    }
+  }
+
+  const renderViewDrinkScreen = () => {
+    if (shouldRenderViewDrinkScreen()) {
+      return(<ViewDrink drink={currentDrink} goBack={onGoBack}></ViewDrink>);
+    }
+  } 
 
   const menuItems = () => {
     let menuItems = [...drinkCategories];
@@ -76,9 +99,11 @@ const App = () => {
   return (
     <>
       <Banner></Banner>
-      <Menu items={menuItems()} filterByCategory={filterByCategory}></Menu>
-      <Search handleSearch={handleSearch}></Search>
-      {renderScreens(currentDrink, currentCategory, viewDrink, searchResults, goBack, cancelDrinkAdd, addCustomDrink, customDrinks)}
+      <Menu items={menuItems()} filterByCategory={onFilterByCategory}></Menu>
+      <Search handleSearch={handleSearch} searchResults={searchResults}></Search>
+      {renderHomeScreen()}
+      {renderAddNewDrinksScreen()}
+      {renderViewDrinkScreen()}
     </>
   );
 }

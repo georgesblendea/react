@@ -1,4 +1,4 @@
-import "../../styles/Drink.css";
+import "../../styles/drinks-list/Drink.css";
 import { Component } from "react";
 
 class Drink extends Component {

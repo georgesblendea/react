@@ -1,8 +1,7 @@
 import "../../styles/Search.css"
 import { useEffect, useState } from "react";
-import SearchIcon from '@mui/icons-material/Search';
 
-const Search = ({handleSearch}) => {
+const Search = ({handleSearch, searchResults}) => {
 
     let [keyWord, setKeyWord] = useState("");
 
@@ -10,10 +9,12 @@ const Search = ({handleSearch}) => {
         if (keyWord !== undefined && keyWord !== "") {
         fetch(`http://www.thecocktaildb.com/api/json/v1/1/search.php?s=${keyWord}`)
             .then(response => response.json())
-            .then(data => handleSearch(data.drinks));
+            .then(data => handleSearch(data.drinks))
+            .catch(error => console.log(error));
         } else {
             handleSearch([]);
         }
+       
     }, [keyWord]);
 
     

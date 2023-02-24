@@ -1,14 +1,16 @@
 import "../../styles/DrinkCategory.css";
 import { useEffect, useState } from "react";
-import DrinksList from "./DrinksList";
+import DrinksList from "../drinks-list/DrinksList";
 
 export const DrinkCategory = ({currentCategory, customDrinks, searchResults, viewDrink}) => {
 
     let [drinks, setDrinks] = useState([]);
     let [category, setCategory] = useState(currentCategory);
+    let [emptyPlaceholder, setEmptyPlaceholder] = useState();
 
     useEffect(() => {
         if (searchResults.length) {
+            console.log(searchResults)
             setCategory(currentCategory);
             setDrinks(searchResults);
         } else {

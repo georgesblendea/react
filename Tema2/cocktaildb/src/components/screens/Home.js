@@ -1,9 +1,6 @@
 import "../../styles/Home.css";
 import { DrinkCategory } from "../common/DrinkCategory";
 
-
-
-
 const renderHome = (currentCategory, searchResults, viewDrink, customDrinks) => {
     return (
         <div className="home">

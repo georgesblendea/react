@@ -1,4 +1,4 @@
-import "../../styles/DrinksList.css";
+import "../../styles/drinks-list/DrinksList.css";
 
 import { useEffect, useState } from "react";
 import Drink from "./Drink";
@@ -6,8 +6,8 @@ import Drink from "./Drink";
 const DrinksList = ({drinks, viewDrink}) => {
 
     let [currentDrinks, setCurrentDrinks] = useState([]);
-    useEffect(() => setCurrentDrinks(drinks), [drinks])
 
+    useEffect(() => setCurrentDrinks(drinks), [drinks])
 
     const renderDrink = (drink, viewDrink) => {
         return <Drink key={drink.idDrink} drink={drink} viewDrink = {viewDrink}></Drink>
